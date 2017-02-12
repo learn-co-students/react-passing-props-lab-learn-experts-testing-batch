@@ -1,24 +1,9 @@
 const React = require('react');
 const { Component } = require('react');
 
-class FilteredFruitList extends Component {
-  constructor(props) {
-    super(props);
+const FilteredFruitList =({fruit, filter})=> {
 
-    this.state = {
-      items: []
-    };
-  }
-
-  componentWillMount() {
-    fetch('/api/fruit')
-      .then(res => res.json())
-      .then(fruit => this.setState({ items: fruit}));
-  }
-
-  render() {
-    const list = !this.props.filter ? this.state.items :
-      this.state.items.filter(i => i.fruit_type == this.props.filter);
+    const list = !filter ? fruit : fruit.filter(i => i.fruit_type == filter);
 
     return (
       <ul className="fruit-list">
@@ -26,7 +11,9 @@ class FilteredFruitList extends Component {
       </ul>
     );
   }
+FilteredFruitList.defaultProps = {
+  fruit: [],
+  filter: null
 }
 
 module.exports = FilteredFruitList;
-
